@@ -1,8 +1,7 @@
 package com.example.java_spring_sem7_security_hometask.controllers;
 
 import com.example.java_spring_sem7_security_hometask.domain.User;
-import com.example.java_spring_sem7_security_hometask.repository.UserRepository;
-import com.example.java_spring_sem7_security_hometask.service.IUserService;
+import com.example.java_spring_sem7_security_hometask.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class Controller {
 
-    private IUserService service;
+    private UserService service;
 
     @GetMapping("/welcome")
     public String welcome(){
@@ -44,10 +43,7 @@ public class Controller {
         if(userFromDb != null){
             return "User has been already registered";
         }
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setRole("ROLE_USER");
-        service.save(user);
+        service.register(user.getName(), user.getPassword());
         return "Registration done successfully";
     }
 
