@@ -4,7 +4,6 @@ import com.example.java_spring_sem7_security_hometask.domain.User;
 import com.example.java_spring_sem7_security_hometask.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +19,7 @@ public class Controller {
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public String pageForUser(){
         return "This is page only for users";
     }
@@ -38,7 +37,6 @@ public class Controller {
 
     @PostMapping("/registration")
     public String registerUser(@RequestBody User user){
-//        User userFromDb = repository.findByName(user.getName()).orElse(null);
         User userFromDb = service.findByName(user.getName()).orElse(null);
         if(userFromDb != null){
             return "User has been already registered";

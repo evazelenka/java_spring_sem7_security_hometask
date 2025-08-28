@@ -36,12 +36,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/test/welcome", "test/registration").permitAll()
-//                        .anyRequest().authenticated())
-//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll).build();
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/test/welcome", "test/registration").permitAll()
