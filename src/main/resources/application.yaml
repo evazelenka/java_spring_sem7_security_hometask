@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mysecurity_db
+    url: jdbc:postgresql://localhost:5432/mysecurity_roles_db
     username: myuser
     password: 8
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate.ddl-auto: update
-    generate-ddl: false
+    generate-ddl: true
     show-sql: false
     properties:
       hibernate:

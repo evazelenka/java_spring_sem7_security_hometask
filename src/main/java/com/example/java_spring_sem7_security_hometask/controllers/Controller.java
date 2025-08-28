@@ -3,12 +3,14 @@ package com.example.java_spring_sem7_security_hometask.controllers;
 import com.example.java_spring_sem7_security_hometask.domain.User;
 import com.example.java_spring_sem7_security_hometask.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/test")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Controller {
 
     private UserService service;
@@ -33,16 +35,6 @@ public class Controller {
     @GetMapping("/all")
     public String pageForAll(){
         return "This is page for all employees";
-    }
-
-    @PostMapping("/registration")
-    public String registerUser(@RequestBody User user){
-        User userFromDb = service.findByName(user.getName()).orElse(null);
-        if(userFromDb != null){
-            return "User has been already registered";
-        }
-        service.register(user.getName(), user.getPassword());
-        return "Registration done successfully";
     }
 
 }
